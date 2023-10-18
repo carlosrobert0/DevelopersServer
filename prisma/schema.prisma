@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Developer {
+  id             String    @id @default(uuid())
+  level          Level     @relation(fields: [levelId], references: [id])
+  levelId        String
+  nome           String
+  sexo           String
+  datanascimento DateTime
+  idade          Int
+  hobby          String
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  @@map("developers")
+}
+
+model Level {
+  id        String      @id @default(uuid())
+  name      String
+  Developer Developer[]
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  @@map("levels")
+}
