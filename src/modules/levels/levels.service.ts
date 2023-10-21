@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotImplementedException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { CreateLevelDto } from './dto/create-level.dto'
@@ -50,10 +50,17 @@ export class LevelsService {
   }
 
   async remove(id: string) {
-    await this.prisma.level.delete({
-      where: {
-        id,
-      },
-    })
+    try {
+      await this.prisma.level.delete({
+        where: {
+          id,
+        },
+      })
+    } catch (error) {
+      console.log('error', error)
+      throw new NotImplementedException(
+        'Existem um ou mais desenvolvedores vinculados a este nível',
+      )
+    }
   }
 }
