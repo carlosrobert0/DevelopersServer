@@ -16,14 +16,26 @@ export class LevelsService {
     return level
   }
 
-  async findAll() {
+  async findAll(page: number, pageSize: number) {
+    const skip = (page - 1) * pageSize
+    const take = Number(pageSize)
+
+    const totalLevels = await this.prisma.level.count()
+
     const levels = await this.prisma.level.findMany({
+      skip,
+      take,
       include: {
         developers: true,
       },
     })
 
-    return levels
+    return {
+      totalLevels,
+      page,
+      pageSize,
+      data: levels,
+    }
   }
 
   async findOne(id: string) {

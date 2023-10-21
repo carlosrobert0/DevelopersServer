@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common'
 import { CreateLevelDto } from './dto/create-level.dto'
 import { UpdateLevelDto } from './dto/update-level.dto'
@@ -21,8 +22,8 @@ export class LevelsController {
   }
 
   @Get()
-  findAll() {
-    return this.levelsService.findAll()
+  findAll(@Query('page') page = 1, @Query('pageSize') pageSize = 5) {
+    return this.levelsService.findAll(page, pageSize)
   }
 
   @Get(':id')
