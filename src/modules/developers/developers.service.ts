@@ -16,14 +16,26 @@ export class DevelopersService {
     return developer
   }
 
-  async findAll() {
+  async findAll(page: number, pageSize: number) {
+    const skip = (page - 1) * pageSize
+    const take = Number(pageSize)
+
+    const totalDevelopers = await this.prisma.developer.count()
+
     const developers = await this.prisma.developer.findMany({
+      skip,
+      take,
       include: {
         level: true,
       },
     })
 
-    return developers
+    return {
+      totalDevelopers,
+      page,
+      pageSize,
+      data: developers,
+    }
   }
 
   async findOne(id: string) {

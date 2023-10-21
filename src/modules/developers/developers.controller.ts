@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common'
 import { DevelopersService } from './developers.service'
 import { CreateDeveloperDto } from './dto/create-developer.dto'
@@ -21,8 +22,8 @@ export class DevelopersController {
   }
 
   @Get()
-  findAll() {
-    return this.developersService.findAll()
+  findAll(@Query('page') page = 1, @Query('pageSize') pageSize = 5) {
+    return this.developersService.findAll(page, pageSize)
   }
 
   @Get(':id')
