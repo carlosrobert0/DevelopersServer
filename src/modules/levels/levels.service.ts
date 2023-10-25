@@ -11,6 +11,18 @@ export class LevelsService {
   async create(createLevelDto: CreateLevelDto) {
     const data: Prisma.LevelCreateInput = createLevelDto
 
+    const levelAlreadyExists = await this.prisma.level.findFirst({
+      where: {
+        name: data.name,
+      },
+    })
+
+    if (levelAlreadyExists) {
+      throw new NotImplementedException(
+        'Já existe um nível com o nome informado!',
+      )
+    }
+
     const level = await this.prisma.level.create({ data })
 
     return level
