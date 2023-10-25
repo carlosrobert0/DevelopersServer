@@ -4,9 +4,9 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
-  Query,
+  Put,
+  Query
 } from '@nestjs/common'
 import { CreateLevelDto } from './dto/create-level.dto'
 import { UpdateLevelDto } from './dto/update-level.dto'
@@ -31,7 +31,7 @@ export class LevelsController {
     return this.levelsService.findOne(id)
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateLevelDto: UpdateLevelDto) {
     return this.levelsService.update(id, updateLevelDto)
   }
