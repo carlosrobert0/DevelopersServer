@@ -5,5 +5,4 @@ export class CreateDeveloperDto {
   hobby: string
   dateOfBirth: Date
   levelId: string
-  level: any
 }
