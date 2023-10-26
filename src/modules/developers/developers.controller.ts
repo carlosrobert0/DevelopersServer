@@ -4,9 +4,9 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
-  Query,
+  Put,
+  Query
 } from '@nestjs/common'
 import { DevelopersService } from './developers.service'
 import { CreateDeveloperDto } from './dto/create-developer.dto'
@@ -31,7 +31,7 @@ export class DevelopersController {
     return this.developersService.findOne(id)
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateDeveloperDto: UpdateDeveloperDto,
