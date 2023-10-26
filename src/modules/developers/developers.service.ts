@@ -9,7 +9,7 @@ export class DevelopersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createDeveloperDto: CreateDeveloperDto) {
-    const data: Prisma.DeveloperCreateInput = createDeveloperDto
+    const data: CreateDeveloperDto = createDeveloperDto
 
     const developer = await this.prisma.developer.create({ data })
 
